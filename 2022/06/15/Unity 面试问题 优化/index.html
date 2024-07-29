@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Unity 面试问题 优化 | Clear</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="场景优化优化的方向有Drawcall，渲染面数(模型&#x2F;阴影)，灯光烘培，贴图压缩，内存 Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.静态批处理:勾选BatchingStatic,打包后会将相同模型的物体进行合并网格,达到批处理的效果,但是会增加包体大小,优点可以进行烘培光照贴图2.动态批处理:每一帧把可以进行批处理的模型网格进行合并，再把合并后模型数据传递给GP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 面试问题 优化">
+<meta property="og:url" content="http://example.com/2022/06/15/Unity%20%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%20%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Clear">
+<meta property="og:description" content="场景优化优化的方向有Drawcall，渲染面数(模型&#x2F;阴影)，灯光烘培，贴图压缩，内存 Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.静态批处理:勾选BatchingStatic,打包后会将相同模型的物体进行合并网格,达到批处理的效果,但是会增加包体大小,优点可以进行烘培光照贴图2.动态批处理:每一帧把可以进行批处理的模型网格进行合并，再把合并后模型数据传递给GP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-15T09:51:49.000Z">
+<meta property="article:modified_time" content="2022-08-22T08:17:47.176Z">
+<meta property="article:author" content="Song-CQ">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Clear" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Clear</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Unity 面试问题 优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/06/15/Unity%20%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%20%E4%BC%98%E5%8C%96/" class="article-date">
+  <time datetime="2022-06-15T09:51:49.000Z" itemprop="datePublished">2022-06-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Unity 面试问题 优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="场景优化"><a href="#场景优化" class="headerlink" title="场景优化"></a>场景优化</h2><p>优化的方向有Drawcall，渲染面数(模型&#x2F;阴影)，灯光烘培，贴图压缩，内存</p>
+<p>Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批<br>1.静态批处理:<br>勾选BatchingStatic,打包后会将相同模型的物体进行合并网格,达到批处理的效果,但是会增加包体大小,优点可以进行烘培光照贴图<br>2.动态批处理:<br>每一帧把可以进行批处理的模型网格进行合并，再把合并后模型数据传递给GPU，然后使用同一个材质对其渲染,缺点动态批处理会消耗CPU,限制比较大.SRP渲染管线的动态批处理设置在渲染管线中的Advanced-&gt;Dynamic Batching选项<br>  限制:<br>  顶点属性要小于900<br>  缩放正负值要一样<br>  同一个实例<br>  复杂shader不支持，动态阴影也不支持，多pass渲染不支持<br>3.图集合批:</p>
+<h2 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h2><p>1.资源内存占用<br>纹理（Texture）、网格（Mesh）、动画片段（AnimationClip）、音频片段（AudioClip）、材质（Material）、着色器（Shader）、字体资源（Font）以及文本资源（Text Asset）等等。</p>
+<p>纹理压缩格式可以参考:<a target="_blank" rel="noopener" href="https://song-cq.github.io/2022/06/24/%E7%BA%B9%E7%90%86%E5%8E%8B%E7%BC%A9/">纹理压缩格式</a>;</p>
+<h2 id="资源加载优化"><a href="#资源加载优化" class="headerlink" title="资源加载优化"></a>资源加载优化</h2><p>资源加载的时候需要把资源从硬盘加载到内存，十分影响性能，优化方向有异步加载资源，分帧加载，使用对象池复用，缓存,减少资源的加载卸载频率，预加载等。<br>其中，纹理、网格、动画片段和音频片段则是最容易造成较大内存开销的资源</p>
+<h2 id="GC优化"><a href="#GC优化" class="headerlink" title="GC优化"></a>GC优化</h2><p>GC，引用类型的数据存在堆内存中，在栈中只保存对应数据的堆内存地址，当触发GC时，会检查堆内存上的每个变量是否被引用，不被引用内存将回收以备下次内存分配。GC触发的时间有三种：<br>1.不同平台不同频率自动调用<br>2.堆内存不够的时候自动调用<br>3.调用System.GC.Collect()主动GC<br>优化方向：<br>1.减少内存分配，例如<br>  1）使用对象池复用对象;<br>  2）列表Clear而不是每次都new;<br>  3）一些接口(transform.name,tag等)每次调用都会开辟新的内存空间，可以缓存起来，减少调用频率，特别是在update里要避免new操作;<br>  4）另外每一个字符串都是不可修改的，如果对字符串执行拼接操作，中间会有多个字符开辟新的内存空间，所以应该使用string.format或者分割文本显示或者sringbuilder去做拼接显示；<br>  5）避免拆箱装箱操作，装箱操作是把值类型变成引用类型，会开辟新的内存空间<br>  6）引用类型的比较也会有GC，可以使用对应的id去比较<br>2.减少GC次数，可以在静态loading界面主动触发GC，减少无用内存的引用。<br>3.连续分配内存，如果分配空间过于零散，会使大空间内存更难分配 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/15/Unity%20%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%20%E4%BC%98%E5%8C%96/" data-id="clz6pxty90000icu0as4d7koc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/22/%E7%BA%B9%E7%90%86%E5%8E%8B%E7%BC%A9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          纹理压缩
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/22/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/22/%E7%BA%B9%E7%90%86%E5%8E%8B%E7%BC%A9/">纹理压缩</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/15/Unity%20%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%20%E4%BC%98%E5%8C%96/">Unity 面试问题 优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 Song-CQ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
