@@ -4,9 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Unity 面试问题 优化, 于是我们奋力前进，却如同逆水行舟">
-    <meta name="description" content="场景优化优化的方向有Drawcall，渲染面数(模型&amp;#x2F;阴影)，灯光烘培，贴图压缩，内存
-Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.静态批处理:勾选BatchingStatic,打包后会将相同模型的物体进">
+    <meta name="keywords" content="ILRuntimeTool, 于是我们奋力前进，却如同逆水行舟">
+    <meta name="description" content="
+
+
+
+
+0x010x020x030x04
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +24,7 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Unity 面试问题 优化 | 凡是过往,皆为序章</title>
+    <title>ILRuntimeTool | 凡是过往,皆为序章</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -278,12 +284,12 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/2024/07/30/UnityFramework/ILRuntimeTool/bg.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Unity 面试问题 优化</h1>
+                    <h1 class="description center-align post-title">ILRuntimeTool</h1>
                 </div>
             </div>
         </div>
@@ -307,8 +313,12 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">Unity性能优化</span>
+                            <a href="/tags/Unity/">
+                                <span class="chip bg-color">Unity</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%A1%86%E6%9E%B6%E5%B7%A5%E5%85%B7/">
+                                <span class="chip bg-color">框架工具</span>
                             </a>
                         
                     </div>
@@ -319,8 +329,8 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Unity/" class="post-category">
-                                Unity
+                            <a href="/categories/Unity%E6%A1%86%E6%9E%B6/" class="post-category">
+                                Unity框架
                             </a>
                         
                     </div>
@@ -332,7 +342,7 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-15
+                    2024-07-30
                 </div>
                 
 
@@ -353,12 +363,13 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="场景优化"><a href="#场景优化" class="headerlink" title="场景优化"></a>场景优化</h2><p>优化的方向有Drawcall，渲染面数(模型&#x2F;阴影)，灯光烘培，贴图压缩，内存</p>
-<p>Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批<br>1.静态批处理:<br>勾选BatchingStatic,打包后会将相同模型的物体进行合并网格,达到批处理的效果,但是会增加包体大小,优点可以进行烘培光照贴图<br>2.动态批处理:<br>每一帧把可以进行批处理的模型网格进行合并，再把合并后模型数据传递给GPU，然后使用同一个材质对其渲染,缺点动态批处理会消耗CPU,限制比较大.SRP渲染管线的动态批处理设置在渲染管线中的Advanced-&gt;Dynamic Batching选项<br>  限制:<br>  顶点属性要小于900<br>  缩放正负值要一样<br>  同一个实例<br>  复杂shader不支持，动态阴影也不支持，多pass渲染不支持<br>3.图集合批:</p>
-<h2 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h2><p>1.资源内存占用<br>纹理（Texture）、网格（Mesh）、动画片段（AnimationClip）、音频片段（AudioClip）、材质（Material）、着色器（Shader）、字体资源（Font）以及文本资源（Text Asset）等等。</p>
-<p>纹理压缩格式可以参考:<a href="https://song-cq.github.io/2022/06/24/%E7%BA%B9%E7%90%86%E5%8E%8B%E7%BC%A9/">纹理压缩格式</a>;</p>
-<h2 id="资源加载优化"><a href="#资源加载优化" class="headerlink" title="资源加载优化"></a>资源加载优化</h2><p>资源加载的时候需要把资源从硬盘加载到内存，十分影响性能，优化方向有异步加载资源，分帧加载，使用对象池复用，缓存,减少资源的加载卸载频率，预加载等。<br>其中，纹理、网格、动画片段和音频片段则是最容易造成较大内存开销的资源</p>
-<h2 id="GC优化"><a href="#GC优化" class="headerlink" title="GC优化"></a>GC优化</h2><p>GC，引用类型的数据存在堆内存中，在栈中只保存对应数据的堆内存地址，当触发GC时，会检查堆内存上的每个变量是否被引用，不被引用内存将回收以备下次内存分配。GC触发的时间有三种：<br>1.不同平台不同频率自动调用<br>2.堆内存不够的时候自动调用<br>3.调用System.GC.Collect()主动GC<br>优化方向：<br>1.减少内存分配，例如<br>  1）使用对象池复用对象;<br>  2）列表Clear而不是每次都new;<br>  3）一些接口(transform.name,tag等)每次调用都会开辟新的内存空间，可以缓存起来，减少调用频率，特别是在update里要避免new操作;<br>  4）另外每一个字符串都是不可修改的，如果对字符串执行拼接操作，中间会有多个字符开辟新的内存空间，所以应该使用string.format或者分割文本显示或者sringbuilder去做拼接显示；<br>  5）避免拆箱装箱操作，装箱操作是把值类型变成引用类型，会开辟新的内存空间<br>  6）引用类型的比较也会有GC，可以使用对应的id去比较<br>2.减少GC次数，可以在静态loading界面主动触发GC，减少无用内存的引用。<br>3.连续分配内存，如果分配空间过于零散，会使大空间内存更难分配 </p>
+                <ul>
+<li></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><hr />
+
 
                 
             </div>
@@ -385,7 +396,7 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Song-CQ.github.io/2022/06/15/unity/unity-mian-shi-wen-ti-you-hua/">https://Song-CQ.github.io/2022/06/15/unity/unity-mian-shi-wen-ti-you-hua/</a>
+                    <a href="https://Song-CQ.github.io/2024/07/30/ilruntimetool/">https://Song-CQ.github.io/2024/07/30/ilruntimetool/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -423,8 +434,12 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Unity%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">Unity性能优化</span>
+                                <a href="/tags/Unity/">
+                                    <span class="chip bg-color">Unity</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%A1%86%E6%9E%B6%E5%B7%A5%E5%85%B7/">
+                                    <span class="chip bg-color">框架工具</span>
                                 </a>
                             
                         </div>
@@ -774,13 +789,13 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/08/22/hexo-jia-matery-de-shi-yong/">
+                <a href="/2024/07/30/markdown-kuai-su-ru-men/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.png" class="responsive-img" alt="Hexo博客主题之matery的使用">
+                        <img src="/medias/featureimages/4.png" class="responsive-img" alt="Markdown快速入门">
                         
-                        <span class="card-title">Hexo博客主题之matery的使用</span>
+                        <span class="card-title">Markdown快速入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -791,14 +806,14 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-30
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Web/" class="post-category">
-                                    Web
+                            <a href="/categories/Unity%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    Unity框架
                                 </a>
                             
                             
@@ -812,8 +827,8 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                         <span class="chip bg-color">Hexo</span>
                     </a>
                     
-                    <a href="/tags/hexo-theme-matery/">
-                        <span class="chip bg-color">hexo-theme-matery</span>
+                    <a href="/tags/Markdown/">
+                        <span class="chip bg-color">Markdown</span>
                     </a>
                     
                 </div>
@@ -824,16 +839,16 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/15/unity/unity-mian-shi-wen-ti-you-hua/">
+                <a href="/2024/07/29/unity-wen-li-ya-suo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Unity 面试问题 优化">
+                        <img src="/medias/featureimages/0.png" class="responsive-img" alt="Unity 纹理压缩">
                         
-                        <span class="card-title">Unity 面试问题 优化</span>
+                        <span class="card-title">Unity 纹理压缩</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -844,7 +859,7 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-29
                             </span>
                         <span class="publish-author">
                             
@@ -858,7 +873,6 @@ Drawcall 可以采用的手段有静态批处理,动态批处理,图集合批1.�
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
