@@ -22,7 +22,7 @@
     
     <style>
         body{
-            background-image: url(medias/featureimages/1.png);
+            background-image: url(medias/featureimages/0.png);
             background-repeat:no-repeat;
             background-size: 100% 100%;
             background-attachment:fixed;
@@ -279,9 +279,9 @@
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
-                
-                你在花里 如花在风中
-                
+                 
+                 
+                 
             </div>
 
             <div class="description center-align">
@@ -312,16 +312,7 @@
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/project/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-<script>
-    
-      var bannerUrl = "/project/medias/featureimages/" + Math.floor(Math.random() * 8) + '.jpg';
-    
-    $('.bg-cover.about-cover').css('background-image', 'url(' + bannerUrl + ')');
-
+    $('.bg-cover').css('background-image', 'url(/project/medias/banner/0.jpg)');
 </script>
 
 
@@ -445,19 +436,20 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/project/2022/08/22/hello-world/">
+                        <a href="/project/2022/08/22/Hexo%E5%8A%A0matery%E7%9A%84%E4%BD%BF%E7%94%A8/">
                             <div class="card-image">
                                 
                                 
-                                <img src="/project/medias/featureimages/4.png" class="responsive-img" alt="Hello World">
+                                <img src="/project/medias/featureimages/1.png" class="responsive-img" alt="Hexo博客主题之matery的使用">
                                 
-                                <span class="card-title">Hello World</span>
+                                <span class="card-title">Hexo博客主题之matery的使用</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                                    文章 Front-matter 介绍Front-matter 选项详解Front-matter 选项中的所有内容均为非必填的。但我仍然建议至少填写 title 和 date 的值。
+配置选项	默认值	描述title	Markdown 的文件
                                 
                             </div>
                             <div class="publish-info">
@@ -466,13 +458,25 @@
                                 </span>
                                 <span class="publish-author">
                                     
-                                    <i class="fas fa-user fa-fw"></i>
-                                    清源
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/project/categories/Web/" class="post-category">
+                                    Web
+                                    </a>
+                                    
                                     
                                 </span>
                             </div>
                         </div>
 
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/project/tags/Hexo/"><span class="chip bg-color">Hexo</span></a>
+                            
+                            <a href="/project/tags/hexo-theme-matery/"><span class="chip bg-color">hexo-theme-matery</span></a>
+                            
+                        </div>
                         
                     </div>
                 </div>
@@ -488,67 +492,13 @@
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/project/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/project/libs/aplayer/APlayer.min.js"></script>
-<script src="/project/libs/aplayer/Meting.min.js"></script>
-
-    
 
     <div class="container row center-align"
          style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2024</span>
             
             <a href="/project/about" target="_blank">清源</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -614,7 +564,7 @@
     </div>
 </footer>
 
-<div class="progress-bar"></div>
+
 
 
     <!-- 搜索遮罩框 -->
@@ -825,6 +775,9 @@ $(function () {
     
     <script src="/project/libs/instantpage/instantpage.js" type="module"></script>
     
+ 
+    </script>
+
 
 </body>
 

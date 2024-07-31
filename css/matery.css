@@ -34,11 +34,25 @@
 }
 
 body {
-    background-color: #eaeaea;
+    /*background-color: #eaeaea;*/
     margin: 0;
     color: #34495e;
     overflow-x: hidden;
     overflow-y: auto;
+	
+	
+	background-image: url(../medias/featureimages/1.png);
+    background-repeat: repeat;      
+    background-size: 100% 100%;     
+    background-attachment: fixed;   
+	
+
+	
+	/*background: linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)) 0% 0% / cover, url("https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png"), url("https://ae01.alicdn.com/kf/H21b5f6b8496141a1979a33666e1074d9x.jpg") 0px 0px;
+    background-attachment: fixed;
+    margin: 0;
+    color: #7F95D1;*/
+	
 }
 
 h1 {
@@ -241,7 +255,9 @@ mark {
 }
 
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background-image: linear-gradient(to right, #94BCA5 0%, #6A6A6A 100%);
+    opacity: 0.7;   /*透明效果，0-1范围*/
+
 }
 
 .text-color {
@@ -595,7 +611,7 @@ header .go-back i {
 
 @-webkit-keyframes rainbow {
 
-    0%,
+    /*0%,
     100% {
         background: rgba(156, 39, 176, 0.75);
         background: linear-gradient(45deg, rgba(156, 39, 176, 0.75) 0%, rgba(156, 39, 176, 0.65) 100%);
@@ -636,12 +652,12 @@ header .go-back i {
         background: linear-gradient(45deg, rgba(233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
         background: -moz-linear-gradient(135deg, rgba(233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
         background: -webkit-linear-gradient(135deg, rgba(2233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
-    }
+    }*/
 }
 
 @keyframes rainbow {
 
-    0%,
+    /*0%,
     100% {
         background: rgba(156, 39, 176, 0.75);
         background: linear-gradient(45deg, rgba(156, 39, 176, 0.75) 0%, rgba(156, 39, 176, 0.65) 100%);
@@ -682,7 +698,7 @@ header .go-back i {
         background: linear-gradient(45deg, rgba(233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
         background: -moz-linear-gradient(135deg, rgba(233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
         background: -webkit-linear-gradient(135deg, rgba(2233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
-    }
+    }*/
 }
 
 .index-card {
@@ -2293,4 +2309,28 @@ body.DarkMode .theme-btn:hover {
     font-family:'Font Awesome 5 Free';
     font-weight: 900;
     color: #d9534f;
+}
+
+/* 滚动条 , 调bar颜色金瓜黄#fcd217相间姚黄#d0deaa*/
+::-webkit-scrollbar-thumb {
+    background-color: #94BCA5;
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.4) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.4) 75%,transparent 75%,transparent);
+    border-radius: 3em;
+}
+::-webkit-scrollbar-track {
+    background-color: #C0CDCD;
+    border-radius: 3em;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 15px;
+
+}
+@font-face{
+    font-family: 'myFont';
+    src: url('../font/ChillKai.ttf');
+}
+ 
+body{
+    font-family: 'myFont';
 }
