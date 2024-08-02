@@ -5,8 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="ILRuntimeTool, 于是我们奋力前进，却如同逆水行舟">
-    <meta name="description" content="img: 2024&amp;#x2F;08&amp;#x2F;01&amp;#x2F;ILRuntimeTool&amp;#x2F;bg.png
-工具界面0x020x030x04">
+    <meta name="description" content="前言Framework框架 使用ILRuntime插件 进行热更方案。
+ILRuntime 原理是将要热更的代码编译成 Dll,通过对热更Dll的载入实现热更
+项目启动时 判断HotFix.Dll的版本,如果外部的版本更高,则下载新的Hot">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -278,7 +279,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/gh-pages/bg.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/gh-pages/2024/08/01/ILRuntimeTool/bg.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -357,8 +358,96 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>img: 2024&#x2F;08&#x2F;01&#x2F;ILRuntimeTool&#x2F;bg.png</p>
-<h2 id="工具界面"><a href="#工具界面" class="headerlink" title="工具界面"></a>工具界面</h2><h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Framework框架 使用ILRuntime插件 进行热更方案。</p>
+<p>ILRuntime 原理是将要热更的代码编译成 Dll,通过对热更Dll的载入实现热更</p>
+<p>项目启动时 判断HotFix.Dll的版本,如果外部的版本更高,则下载新的HotFix.Dll</p>
+<p>再从项目中动态加载这个Dll， 从而实现代码热更。</p>
+<p>本工具是对代码进行编译成Dll这一步进行自动化流程</p>
+<p>开发者可以在项目中正常进行开发，在要热更代码时，点击【启动ILRuntime热更流程】</p>
+<p>工具会自动将热更路径内的代码提取 然后编译成HotFix.Dll.</p>
+<p><a target="_blank" rel="noopener" href="https://ourpalm.github.io/ILRuntime/public/v1/guide/index.html">ILRuntime文档</a></p>
+<h2 id="工具界面"><a href="#工具界面" class="headerlink" title="工具界面"></a>工具界面</h2><img src="bg.png" alt="" style="width:100%" /> 
+
+<hr>
+<h2 id="工具功能说明"><a href="#工具功能说明" class="headerlink" title="工具功能说明"></a>工具功能说明</h2><h3 id="热更相关的路径"><a href="#热更相关的路径" class="headerlink" title="热更相关的路径"></a>热更相关的路径</h3><img src="0.png" alt="" style="width:100%" /> 
+---
+
+<p>1.<strong>[提取的热更代码路径]</strong> : 存放 从项目中提取出来的热更代码 的文件夹</p>
+<ol start="2">
+<li><strong>[存放HotFix.Dll 路径]</strong> : 存放编译出来的HotFix.Dll(一般情况下是StreamingAssets下的HotFix文件夹)</li>
+</ol>
+<p><strong>热更文件夹</strong></p>
+<p><em>项目中会被热更的文件夹,存放在该文件夹下的代码会被热更</em></p>
+<p><strong>[ModuleMgr 路径]</strong> : module代码</p>
+<p><strong>[Logic 路径]</strong> : 逻辑代码</p>
+<h2 id="启动热更设置"><a href="#启动热更设置" class="headerlink" title="启动热更设置"></a>启动热更设置</h2><img src="2.png" alt="" style="width:100%" /> 
+
+<hr>
+<p>1.被提取的热更代码是否删除 默认false</p>
+<p>  为true时在执行[Client Code To Cache] 时会将项目热更文件夹的代码删除并创建热更占位文件</p>
+<p>  为何要删除？因为编译的Dll会引用ProjectApp.csproj。所以为了避免代码重复会删除项目中的文件</p>
+<p>  <em>一般在打包编译时才会删除项目中的热更文件</em><br>  <del>原先是不删除本地的会造成编译 hotfix.dll引用 ProjectApp.dll 时报代码重复 后来在注册代码时换了提取出去的代码文件的命名空间 就不会报相同命名空间下的文件重复了</del></p>
+<p>2.编译Dll的方案：使用何种方案进行dll编译</p>
+<pre class=" language-C#"><code class="language-C#">public enum CompileCodePlan
+&#123;
+    MsBuild = 0,//调用使用vs的Msbuild编译 建议使用这个方法
+    CompileAssembly_HotfixTool = 1,
+    //使用外部程序 HotfixTool 创建CSharpCodeProvider进行编译
+    CompileAssembly_UnityEditor = 2,
+    //使用UntiyEditor编译器进程，创建CSharpCodeProvider 进行编译 
+    (这种编译方式会导致编译出来的pdb调试文件被unity的(pdb2mdb.exe)转换成mbd文件)   
+&#125;
+</code></pre>
+<p>3.是否重新创建.bat文件: 调用外部程序的.bat文件是否需要重新创建</p>
+<p>4.如果是使用MsBuild编译 要设置MsBuild.exe的目录,</p>
+<p>MsBuild.exe 一般位于vs安装目录的VS2022\Msbuild\Current\Bin\MSBuild.exe</p>
+<h2 id="热更流程"><a href="#热更流程" class="headerlink" title="热更流程"></a>热更流程</h2><img src="1.png" alt="" style="width:100%" /> 
+
+<hr>
+<p><strong>点击【启动ILRuntime热更流程】后 按顺序执行</strong></p>
+<ol>
+<li><p><strong>[Client Code To Cache] - 提取代码</strong> </p>
+<p>从项目中将热更文件夹下的代码提取至缓存文件夹（_Temporary&#x2F;HotFix）<strong>该文件夹下的代码不会被自动删除</strong> </p>
+</li>
+<li><p><strong>[Register Code] - 注册热更代码</strong>   </p>
+<p>会将缓存文件夹（_Temporary&#x2F;HotFix)中的 <strong>所有代码</strong> 复制至<strong>提取的热更代码路径</strong>,同时将文件名注册ProjectApp_HotFix.csproj<br>提取时会将热更的CS文件中的命名空间 ProjectApp.csproj替换成ProjectApp.HotFix 避免编译时造成相同命名空间下的文件重复</p>
+</li>
+<li><p><strong>[Compile Code To Dll] - 编译Dll</strong></p>
+<p>将ProjectApp_HotFix.csproj 注册的代码文件使用设定的编译方式进行编译。</p>
+</li>
+</ol>
+<hr>
+<p><strong>Tips</strong> </p>
+<p><strong>（_Temporary&#x2F;HotFix）该文件夹下的代码不会被自动删除</strong> </p>
+<p>执行[Client Code To Cache]命令时  </p>
+<p>热更文件夹的代码 提取至 缓存文件夹下时, <strong>热更文件夹</strong> 下的所有文件会复制至<strong>缓存文件夹</strong>下,<br>如果有同名文件则更新 <strong>缓存文件夹</strong> 下的文件，但是并不会删除 <strong>缓存文件夹</strong> 的未更新文件 <em>(也就是热更文件夹下没有的文件)</em>.</p>
+<p>在执行注册代码时会将 <strong>缓存文件夹</strong> 中的所有代码(包括未更新文件)注册进编译流程，<br>如果你只想要将热更文件夹下的代码注册编译流程时 ，请先执行 <strong>[删除热更文件夹缓存]</strong> .</p>
+<p>为何要这样设置，主要是防止不规范执行 <strong>[提取代码]</strong> 和 <strong>[载入缓存代码]</strong> 两个命令时造成代码被意外删除。</p>
+<hr>
+<h2 id="生成文件"><a href="#生成文件" class="headerlink" title="生成文件"></a>生成文件</h2><img src="3.png" alt="" style="width:100%" /> 
+
+<hr>
+<p>1.HotFix.Dll就是生成的Dll文件</p>
+<p>2.HotFix.pdb是生成的调试文件 <del>打包时删除</del></p>
+<p>3.version 是生成的dll版本信息，包含dll的编号和 MD5码和生成时间</p>
+<pre class=" language-C#"><code class="language-C#">&#123;"version":48,"buildDate":"2024/8/2 10:35:38","MD5":"74a7f12b6e17f2aeb514c02b74d47417","size":15360&#125;
+</code></pre>
+<hr>
+<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><img src="4.png" alt="" style="width:100%" /> 
+
+<hr>
+<p>1.<strong>载入热更文件夹缓存代码</strong><br>  将缓存文件夹（_Temporary&#x2F;HotFix)中的<strong>所有代码</strong>复制至项目热更文件夹</p>
+<p>2.<strong>删除热更文件夹缓存代码</strong><br>  删除热更<em>缓存文件夹</em>（_Temporary&#x2F;HotFix)的缓存</p>
+<hr>
+<p><strong>以下功能是接入的ILRuntime的接口</strong> <del>（不推荐使用）一般都有问题</del></p>
+<p>1.分析热更DLL生成CLR绑定<br>2.注册跨域继承适配器</p>
+<h2 id="开发该工具中碰到问题"><a href="#开发该工具中碰到问题" class="headerlink" title="开发该工具中碰到问题"></a>开发该工具中碰到问题</h2><hr>
+<p>1.在使用CSharpCodeProvider代码加载代码文件进行编译时要注意引用netstandard.dll 而且必须是unity编辑器的netstandard.dll</p>
+<pre class=" language-C#"><code class="language-C#">////获取当前项目所引用的程序集 netstandard.dll
+string frameworkInstallDir = System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory();
+cp.ReferencedAssemblies.Add(frameworkInstallDir + @"\Facades\netstandard.dll");
+</code></pre>
+
                 
             </div>
             <hr/>
@@ -781,7 +870,7 @@
                 <a href="/gh-pages/2024/08/01/ilruntimetool/">
                     <div class="card-image">
                         
-                        <img src="/gh-pages/bg.png" class="responsive-img" alt="ILRuntimeTool">
+                        <img src="/gh-pages/2024/08/01/ILRuntimeTool/bg.png" class="responsive-img" alt="ILRuntimeTool">
                         
                         <span class="card-title">ILRuntimeTool</span>
                     </div>
