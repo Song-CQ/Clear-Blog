@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Hexo博客部署到Linux云服务器.md</title>
+      <link href="/2024/08/05/hexo-bo-ke-bu-shu-dao-linux-yun-fu-wu-qi/"/>
+      <url>/2024/08/05/hexo-bo-ke-bu-shu-dao-linux-yun-fu-wu-qi/</url>
+      
+        <content type="html"><![CDATA[<p>[参考文章]<a href="https://blog.csdn.net/weixin_44861399/article/details/104925231">https://blog.csdn.net/weixin_44861399/article/details/104925231</a></p><p><em><strong>写在开头</strong></em> 对于一个刚接触的门外汉来说，搭建博客，到部署到服务器真的让人崩溃，但是在不断地排错过程中，也渐渐弄懂了一些东西。<br>从标签就可以看出来涉及到的东西有点多<br>其实在一开始我只是嫌弃将博客部署到github上加载速度太慢，这与我建立博客的初衷相悖。我是想在自己忘记一些东西的时候上博客一查，<br>哎？原来我做过这种东西，然后我一看就差不多回忆起来。或者是我做过这个东西，但是很长时间没有用过了,下次再用时突然又不知道怎么用了，<br>然后看看我当时是怎么做的，就可以找回当初的思路，没办法记性不太好，笑。<br>闲话不多说，本文差不多是我按照上述文章去一步步搭建的 <del>甚至开头都抄了一段</del> 感谢作者！。在过程中碰到的一些问题，以及怎么解决的,和一些思路。</p><p><em><strong>复盘</strong></em> 完成后复盘了一下过程，个人从程序的角度来理解，部署博客,可以归纳成下面这些必要的步骤</p><p>1.【源文件】 blog的静态网站文件<br>2.【运行源文件的程序】 部署博客的静态文件<br>3.【程序入口】 别人如何进入观看到你的博客 也就是域名 <del>公网IP</del> </p><p>本文从上上述角度出发来实现在自己服务器搭建出完整博客,并让别人使用域名访问。</p><h2 id="生成源文件"><a href="#生成源文件" class="headerlink" title="生成源文件"></a>生成源文件</h2><h3 id="使用Hexo生成博客的静态文件"><a href="#使用Hexo生成博客的静态文件" class="headerlink" title="使用Hexo生成博客的静态文件"></a>使用Hexo生成博客的静态文件</h3><p>1.安装Node.js<a href="http://nodejs.org/download/">下载地址</a>;</p><p>安装的时候，选择add to path，他会自动配置环境变量,如果没有配置就自己配置一下Node的环境变量。</p><p>使用cmd 输入以下命令</p><pre class=" language-cmd"><code class="language-cmd">node -vnpm -v出现版本号说明安装成功</code></pre><p>2.安装Hexo </p><p>使用cmd 输入以下命令</p><pre class=" language-cmd"><code class="language-cmd">npm install -g hexo-cli</code></pre><p>安装完成后输入hexo -v检查是否安装成功。</p><p>3.hexo本地部署</p><p>在本地新建一个文件夹，我命名它为blog<br>在这个文件夹下，右键打开cmd <del>或者cd进入到该目录</del> </p><p>输入 hexo init，初始化hexo。</p><p>输入 npm install 安装插件</p><p>然后blog目录下会出现这些文件夹<br><img src="0.png" alt="" style="width:100%" /> </p><p>输入 hexo g 生成静态博客文件</p><img src="1.png" alt="" style="width:100%" /> <p>会发现多了一个public目录 这个目录里面的所有文件和文件夹就是生成的 博客静态文件 也就是 <em><strong>源文件</strong></em></p><img src="2.png" alt="" style="width:100%" /> <p>到这，我们已经完成了生成源文件。</p><p>输入 hexo s  将本地电脑当成服务器进行本地部署测试 </p><p>打开浏览器输入localhost：4000，可以看到部署好了，有一篇hello World的博客</p><h2 id="【运行源文件的程序】"><a href="#【运行源文件的程序】" class="headerlink" title="【运行源文件的程序】"></a>【运行源文件的程序】</h2><p>在上面我们已经 将本地电脑当成服务器进行本地部署测试<br>换句话说就是hexo s 这条命令 在本地电脑上生成了一个4000端口 “程序” ，指向了源文件 ，成了运行源文件的程序</p><p>而我的目的很明显并不是只想在本地生成，于是我就得找一个可以部署我们网站源文件的地方</p><p>1.github ，这是一个代码托管网站，我们可以将网站源文件上传到上面，再启动他的部署静态网站的服务，然后就可以通过github分配的域名访问，比如我的就是 <a href="https://song-cq.github.io./">https://song-cq.github.io。</a></p><h3 id="将源文件上传到服务器"><a href="#将源文件上传到服务器" class="headerlink" title="将源文件上传到服务器"></a>将源文件上传到服务器</h3><p>你完全可以将public目录下的所有文件复制到</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Git </tag>
+            
+            <tag> Linux </tag>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ILRuntimeTool</title>
       <link href="/2024/08/01/ilruntimetool/"/>
       <url>/2024/08/01/ilruntimetool/</url>
