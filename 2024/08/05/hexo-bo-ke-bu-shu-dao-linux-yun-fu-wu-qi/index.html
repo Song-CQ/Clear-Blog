@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo博客部署到Linux云服务器.md, 于是我们奋力前进，却如同逆水行舟">
+    <meta name="keywords" content="Hexo博客部署到Linux云服务器, 于是我们奋力前进，却如同逆水行舟">
     <meta name="description" content="[参考文章]https://blog.csdn.net/weixin_44861399/article/details/104925231
 写在开头 对于一个刚接触的门外汉来说，搭建博客，到部署到服务器真的让人崩溃，但是在不断地排错过程中，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo博客部署到Linux云服务器.md | 凡是过往,皆为序章</title>
+    <title>Hexo博客部署到Linux云服务器 | 凡是过往,皆为序章</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -278,12 +278,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo博客部署到Linux云服务器.md</h1>
+                    <h1 class="description center-align post-title">Hexo博客部署到Linux云服务器</h1>
                 </div>
             </div>
         </div>
@@ -388,9 +388,9 @@ npm -v
 <p>输入 npm install 安装插件</p>
 <p>然后blog目录下会出现这些文件夹<br><img src="0.png" alt="" style="width:100%" /> </p>
 <p>输入 hexo g 生成静态博客文件</p>
-<img src="1.png" alt="" style="width:100%" /> 
-
 <p>会发现多了一个public目录 这个目录里面的所有文件和文件夹就是生成的 博客静态文件 也就是 <em><strong>源文件</strong></em></p>
+<img src="1.png"  alt="" style="width:100%" /> 
+
 <img src="2.png" alt="" style="width:100%" /> 
 
 <p>到这，我们已经完成了生成源文件。</p>
@@ -398,8 +398,170 @@ npm -v
 <p>打开浏览器输入localhost：4000，可以看到部署好了，有一篇hello World的博客</p>
 <h2 id="【运行源文件的程序】"><a href="#【运行源文件的程序】" class="headerlink" title="【运行源文件的程序】"></a>【运行源文件的程序】</h2><p>在上面我们已经 将本地电脑当成服务器进行本地部署测试<br>换句话说就是hexo s 这条命令 在本地电脑上生成了一个4000端口 “程序” ，指向了源文件 ，成了运行源文件的程序</p>
 <p>而我的目的很明显并不是只想在本地生成，于是我就得找一个可以部署我们网站源文件的地方</p>
-<p>1.github ，这是一个代码托管网站，我们可以将网站源文件上传到上面，再启动他的部署静态网站的服务，然后就可以通过github分配的域名访问，比如我的就是 <a target="_blank" rel="noopener" href="https://song-cq.github.io./">https://song-cq.github.io。</a></p>
-<h3 id="将源文件上传到服务器"><a href="#将源文件上传到服务器" class="headerlink" title="将源文件上传到服务器"></a>将源文件上传到服务器</h3><p>你完全可以将public目录下的所有文件复制到</p>
+<p>1.github </p>
+<p>这是一个代码托管网站，我们可以将网站源文件上传到上面，再启动他的部署静态网站的服务，然后就可以通过github分配的域名访问，比如我的就是 <a target="_blank" rel="noopener" href="https://song-cq.github.io./">https://song-cq.github.io。</a><br>但是很明显，他是国外的网站，在国内的访问速度相当于蚂蚁跑3000米，所以pass。 <del>或者找其他方法为访问github加速</del></p>
+<p>2.gitee</p>
+<p>这也是一个代码托管网站，和github差不多，但是他是国内的网站，也就是说不会很慢，我完全可以部署在gitee上。但是在我进行一顿操作之后发现他的静态部署网站的服务暂停调整了，重启时间无通知。<br>换句话说就是关了，可能是国内审核成本过大，国内相似的网站基本都关了静态部署的服务。</p>
+<p>3.云服务器 </p>
+<p>在阿里云购买服务器,最便宜那一档，一年99。</p>
+<p>购买之后需要注意的是要放开端口访问。</p>
+<p>点击安全组&#x2F;管理规则 添加80端口的访问权限</p>
+<h3 id="远程链接服务器"><a href="#远程链接服务器" class="headerlink" title="远程链接服务器"></a>远程链接服务器</h3><p>使用宝塔面板连接，可以看到清晰的目录结构</p>
+<p>宝塔信息</p>
+<p>外网面板地址: https:&#x2F;&#x2F;<em><strong><strong><strong>:8888&#x2F;38632d2f<br>内网面板地址: https:&#x2F;&#x2F;</strong></strong></strong></em>:8888&#x2F;38632d2f<br>username: user<br>password: baa11757</p>
+<h3 id="使用Nginx部署静态网站"><a href="#使用Nginx部署静态网站" class="headerlink" title="使用Nginx部署静态网站"></a>使用Nginx部署静态网站</h3><p>在博客上创建一个目录存放博客源文件，我的是&#x2F;home&#x2F;projects&#x2F;blog</p>
+<p>1.安装nginx </p>
+<pre><code>1.安装
+yum install -y nginx
+
+2.启动服务器
+systemctl start nginx
+systemctl enable nginx
+
+3.在浏览器地址栏中输入你的公网ip，如果打开了有内容网页，说明成功了。
+</code></pre>
+<p>2.配置服务器的路由：</p>
+<p>通过公网ip访问，这个地址指向的是nginx，得让他指向我们的博客，就要修改配置文件，找到配置文件etc&#x2F;nginx&#x2F;nginx.conf,<br>并不建议直接修改配置文件，应该先创建一个新的文件，然后采用include的方式，将这个文件包含进nginx.conf中。</p>
+<p>新建配置文件</p>
+<pre><code>cd /etc/nginx/
+mkdir vhost
+cd vhost
+vim blog.conf
+</code></pre>
+<p>编写配置文件</p>
+<pre><code>编辑blog.conf 如下：
+server&#123;
+    listen  80;
+    root /home/projects/blog;这里填博客目录存放的地址
+    server_name 这里填域名如(www.baidu.com) 如果暂时没有域名就填阿里云的公网ip，以后有了再改回来;
+    location /&#123;
+    &#125;
+&#125;
+</code></pre>
+<p>用include插入到nginx.conf中</p>
+<img src="3.png" alt="" style="width:100%" /> 
+
+<p>如果以后还想添加新的网站，也可以在vhost目录下新建一个conf配置文件。然后再用include装入到nginx.conf中。</p>
+<p>最后可能会出现只能访问centOS的怪相，<br>所以，如果出现这个问题了，请你回到这一步，增加一个操作，<br>就是上图中那个server里面的root后面的路径，替换成你的博客存放位置：例如我的是&#x2F;home&#x2F;www&#x2F;blog（这是我经验所得，可能你就会卡在这一步）。</p>
+<p>*** 重启Nginx ***</p>
+<pre><code>进入到Nginx的安装目录 输入以下命令
+nginx -s reload
+</code></pre>
+<p>3.上传博客文件</p>
+<p>将public目录下的所有文件手动上传到服务器存放博客的路径</p>
+<p>然后输入公网ip，如果显示出了你的博客，则代表你已经完成将博客部署到服务器。</p>
+<h3 id="使用Git将源文件上传到服务器"><a href="#使用Git将源文件上传到服务器" class="headerlink" title="使用Git将源文件上传到服务器"></a>使用Git将源文件上传到服务器</h3><p>你完全可以手动将public目录下的所有文件复制到服务器，但是这样明显很麻烦，于是我们使用git</p>
+<p>将上一步上传到服务器的博客源文件删除，避免一些权限问题。</p>
+<p>*** 安装Nodejs ***</p>
+<p>如果已经安装过了就进行下一步</p>
+<pre><code>1.换源
+curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+
+2.安装
+yum install -y nodejs
+
+3.检查版本
+node -v
+npm -v
+
+有版本消息代表安装成功
+</code></pre>
+<p>*** 安装Git以及配置仓库 ***</p>
+<p>1.安装git并查看版本。</p>
+<pre><code>1.安装
+yum install git
+2.查看版本
+git --version
+git version 1.8.3.1
+</code></pre>
+<p>2.新建git用户，并修改权限</p>
+<pre><code>1.新建git用户
+adduser -m  git
+2.修改用户权限
+chmod 740 /etc/sudoers
+vi /etc/sudoers
+</code></pre>
+<p>添加Git ALL&#x3D;(ALL) ALL</p>
+<img src="4.png" alt="" style="width:100%" /> 
+
+<p>保存退出后，将权限改回去。</p>
+<pre><code>chmod 400 /etc/sudoers
+</code></pre>
+<p>你也可以使用宝塔面板，进入到etc目录，找到sudoers文件，编辑sudoers文件加入Git ALL&#x3D;(ALL) ALL。</p>
+<p>3.设置git用户的密码</p>
+<pre><code>passwd git 
+</code></pre>
+<p>4.执行以下命令，切换到git用户，在~目录下，可以看到有一个.ssh文件夹</p>
+<pre><code>切换到git用户
+su git 
+
+进入~目录
+cd ~
+
+在该目录下创建.ssh文件夹
+mkdir .ssh
+
+进入.ssh文件夹
+cd /.ssh
+</code></pre>
+<p>5.生成git用户的公钥密钥文件</p>
+<pre><code>ssh-keygen
+此时在目录下就会有两个文件，分别是id_rsa 和 id_rsa.pub
+</code></pre>
+<p>6.生成 authorized_keys 文件，并复制id_rsa.pub的内容</p>
+<pre><code>cp id_rsa.pub authorized_keys
+
+修改authorized_keys文件权限
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+</code></pre>
+<p>7.在本地主机上打开cmd，使用ssh方式连接云服务器。</p>
+<pre><code>ssh -v git@123.57.60.151(这里填的是服务器公网ip)
+</code></pre>
+<p>需要注意的是git@代表的是用git用户登录，这也是为啥前面要创建git用户。</p>
+<img src="5.png" alt="" style="width:100%" /> 
+
+<p>输入密码之后，看到如图，即代表成功！！！！</p>
+<p>8.创建一个git的仓库，并且新建一个post-receive文件。</p>
+<pre><code>注意以下命令都要使用git用户操作，如果是root请su git 切换到git用户
+
+1.创建并初始化Git仓库
+cd ~ //在~目录创建 ，也可以在任何目录，只要进入想要创建目录
+git init --bare blog.git  // 初始化一个bare类型的Git仓库 ，这种类型没有工作区，
+
+2.新建post—receive文件
+vi ~/blog.git/hooks/post-receive //创建一个钩子文件，也就是有客户端上传时执行的文件
+
+3.输入以下内容： 
+git --work-tree=/home/www/blog --git-dir=/home/git/blog.git checkout -f
+
+4.保存退出之后赋予可执行权限
+chmod +x ~/blog.git/hooks/post-receive
+
+//git --work-tree= /home/www/blog  
+//设置该仓库的工作区（也就是存放博客源文件的目录） 
+
+//git-dir=/home/git/blog.git 
+//指定git仓库的位置 
+
+//checkout -f
+//检出 
+
+该文件就是说在上传了新的变更时，会将最新版本文件检出到工作区目录
+</code></pre>
+<ol start="9">
+<li>Hexo连接到远端服务器</li>
+</ol>
+<p>打开hexo的主目录下的_config.yml,找到 deploy。填写你自己的仓库名字。</p>
+<img src="6.png" alt="" style="width:100%" /> 
+
+<pre><code>hexo g //生成静态博客文件
+
+hexo d //上传博客文件
+</code></pre>
+<p>我的_config.yml填写了两个仓库，一个是github的地址，一个是服务器地址所以他会按顺序先上传github，再上传到自己的服务器</p>
+<p>如果出现权限不对，请检查用户是否是git用户，以及服务器上的存放博客的路径是否是git用户</p>
+<h2 id="使用域名解析"><a href="#使用域名解析" class="headerlink" title="使用域名解析"></a>使用域名解析</h2><p>用个毛，域名备案麻烦的要死，一堆东西，还要居住证。等域名备案完再说。</p>
 
                 
             </div>
@@ -832,9 +994,9 @@ npm -v
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.png" class="responsive-img" alt="Hexo博客部署到Linux云服务器.md">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Hexo博客部署到Linux云服务器">
                         
-                        <span class="card-title">Hexo博客部署到Linux云服务器.md</span>
+                        <span class="card-title">Hexo博客部署到Linux云服务器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
